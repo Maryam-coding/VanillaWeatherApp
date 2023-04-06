@@ -18,7 +18,7 @@ function formatDate(timestamp) {
     "Saturday",
   ];
   let day = days[date.getDay()];
-  return "${day} ${hours}:${minutes}";
+  return `${day} ${hours}:${minutes}`;
 }
 
 function displayTemperature(response) {
@@ -40,14 +40,13 @@ function displayTemperature(response) {
   dateElement.innerHTML = formatDate(response.data.dt * 1000);
   iconElement.setAttribute(
     "src",
-    "https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png"
+    `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   iconElement.setAttribute("alt", response.data.weather[0].description);
 }
 
 function search(city) {
-  let apiKey = "c474d77002fc0f7bt699a6356o32d5ad";
-  let city = "paris";
+  let apiKey = "dff5c692192605ee5ed7f95b423ae857";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayTemperature);
 }
