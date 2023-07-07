@@ -2,11 +2,11 @@ function formatDate(timestamp) {
   let date = new Date(timestamp);
   let hours = date.getHours();
   if (hours < 10) {
-    hours = "0${hours}";
+    hours = `0${hours}`;
   }
   let minutes = date.getMinutes();
   if (minutes < 10) {
-    minutes = "0${minutes}";
+    minutes = `0${minutes}`;
   }
   let days = [
     "Sunday",
@@ -30,6 +30,7 @@ function formatDay(timestamp) {
 }
 
 function displayForecast(response) {
+  console.log(response.data);
   let forecast = response.data.daily;
 
   let forecastElement = document.querySelector("#forecast");
@@ -96,6 +97,8 @@ function displayTemperature(response) {
     `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   iconElement.setAttribute("alt", response.data.weather[0].description);
+
+  getForecast(response.data.coord);
 }
 
 function search(city) {
@@ -107,6 +110,7 @@ function search(city) {
 function handleSubmit(event) {
   event.preventDefault();
   let cityInputElement = document.querySelector("#city-input");
+  document.querySelector("#city").innerHTML = cityInputElement.value;
   search(cityInputElement.value);
 }
 
@@ -130,13 +134,13 @@ function displayCelsiusTemperature(event) {
 
 let celsiusTemperature = null;
 
+let form = document.querySelector("#search-form");
+form.addEventListener("submit", handleSubmit);
+
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
 fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
 
 let celsiusLink = document.querySelector("#celsius-link");
-celsiusLink.addEventListener("click", displayCelsiusTemperature);
+celsiusLink.addEventListener("click", displaycelsiusTemperature);
 
-let form = document.querySelector("#search-form");
-form.addEventListener("submit", handleSubmit);
-search("New York");
-displayForecast();
+search("San Francisco");
